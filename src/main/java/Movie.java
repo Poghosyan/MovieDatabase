@@ -5,12 +5,10 @@ public class Movie implements Comparable<Movie> {
     private ArrayList<Actor> actors;
     private double rating;
 
-    public Movie(String name, String[] actors, double rating) {
+    public Movie(String name) {
         this.name = name;
-        this.rating = rating;
-        for (String actorName : actors) {
-            Actor current = new Actor(actorName, );
-        }
+        this.rating = 0.0;
+        actors = new ArrayList<Actor>();
     }
 
     public String getName() {
@@ -44,8 +42,12 @@ public class Movie implements Comparable<Movie> {
 
         Movie movie = (Movie) o;
 
-        if (name != null ? !name.equals(movie.name) : movie.name != null) return false;
-        return actors != null ? actors.equals(movie.actors) : movie.actors == null;
+        return name != null ? name.equals(movie.name) : movie.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
     public int compareTo(Movie o) {

@@ -5,9 +5,9 @@ public class Actor {
     //an Arraylist that has movies that this actor has acted in, not necessarily all the movies
     private ArrayList<Movie> movies;
 
-    public Actor(String name, ArrayList<Movie> movies) {
+    public Actor(String name) {
         this.name = name;
-        this.movies = movies;
+        this.movies = new ArrayList<Movie>();
     }
 
     public String getName() {
