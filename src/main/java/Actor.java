@@ -33,14 +33,11 @@ public class Actor {
 
         Actor actor = (Actor) o;
 
-        if (!getName().equals(actor.getName())) return false;
-        return getMovies().equals(actor.getMovies());
+        return name != null ? name.equals(actor.name) : actor.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + getMovies().hashCode();
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 }
