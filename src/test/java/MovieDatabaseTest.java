@@ -13,11 +13,6 @@ public class MovieDatabaseTest {
         movieDB = new MovieDatabase();
     }
 
-    /*  TODO
-    Case 1: A new movie is added with no new actors > Check that movie was added to movieList and actorList is unchanged
-    Case 2: A new movie is added with new actors > Check movie was added with no duplicates and actor was added as well
-    Case 3: A movie that already exists in the database is added > It is ignored and no duplicate entries are added
-     */
     @Test
     public void addNewMovieNoActor() throws Exception {
         Movie movie = new Movie("Termnator");
