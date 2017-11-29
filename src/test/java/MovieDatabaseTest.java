@@ -48,10 +48,22 @@ public class MovieDatabaseTest {
 
     @Test
     public void addRating() throws Exception {
+        Movie movie = new Movie("Terminator");
+        movieDB.addMovie("Terminator", new String[] {});
+        movieDB.addRating("Terminator", 5.0);
+        int index = movieDB.getMovieList().indexOf(movie);
+        Movie toCheck = movieDB.getMovieList().get(index);
+        assertEquals(5.0, toCheck.getRating(), .099);
     }
 
     @Test
     public void updateRating() throws Exception {
+        Movie movie = new Movie("Terminator");
+        this.addRating();
+        movieDB.updateRating("Terminator", 4.8);
+        int index = movieDB.getMovieList().indexOf(movie);
+        Movie toCheck = movieDB.getMovieList().get(index);
+        assertEquals(4.8, toCheck.getRating(), .099);
     }
 
     @Test
