@@ -22,7 +22,9 @@ public class MovieDatabase {
     void addMovie(String name, String[] actors) {
         ArrayList<Actor> movieCast = new ArrayList<Actor>();
         Movie movie = new Movie(name);
-        //TODO see if movie is in the movieList
+        /*
+        TODO see if movie is in the movieList
+         */
         //if it is ignore it, go though actors list of movie and add new actors while adding movie to actors movies
         //then add new actors to actorsList
         //if not create movie object, look through actorsList for actors and add them to movies actors
