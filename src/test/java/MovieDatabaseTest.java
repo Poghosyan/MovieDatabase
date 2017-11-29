@@ -52,6 +52,7 @@ public class MovieDatabaseTest {
         movieDB.addMovie("Terminator", new String[] {});
         movieDB.addRating("Terminator", 5.0);
         int index = movieDB.getMovieList().indexOf(movie);
+        assertNotEquals(-1, index);
         Movie toCheck = movieDB.getMovieList().get(index);
         assertEquals(5.0, toCheck.getRating(), .099);
     }
@@ -59,18 +60,35 @@ public class MovieDatabaseTest {
     @Test
     public void updateRating() throws Exception {
         Movie movie = new Movie("Terminator");
-        this.addRating();
+        movieDB.addMovie("Terminator", new String[] {});
         movieDB.updateRating("Terminator", 4.8);
         int index = movieDB.getMovieList().indexOf(movie);
+        assertNotEquals(-1, index);
         Movie toCheck = movieDB.getMovieList().get(index);
         assertEquals(4.8, toCheck.getRating(), .099);
     }
 
     @Test
     public void getBestActor() throws Exception {
+        movieDB.addMovie("My movie", new String[] {"Me"});
+        movieDB.addMovie("Terminator", new String[] {"Arnold Schwarzenegger", "Fake Name", "Name 2"});
+        movieDB.addMovie("Test Movie", new String[] {"Fake Name", "Name 2"});
+        movieDB.addRating("Terminator", 5.0);
+        movieDB.addRating("Test Movie", 4.0);
+        movieDB.addRating("My movie", 5.0);
+        String bestActor = movieDB.getBestActor();
+        assertTrue(bestActor.equals("Arnold Schwarzenegger") || bestActor.equals("Me"));
     }
 
     @Test
     public void getBestMovie() throws Exception {
+        movieDB.addMovie("My movie", new String[] {"Me"});
+        movieDB.addMovie("Terminator", new String[] {"Arnold Schwarzenegger", "Fake Name", "Name 2"});
+        movieDB.addMovie("Test Movie", new String[] {"Fake Name", "Name 2"});
+        movieDB.addRating("Terminator", 5.0);
+        movieDB.addRating("Test Movie", 4.0);
+        movieDB.addRating("My movie", 5.0);
+        String bestMovie = movieDB.getBestMovie();
+        assertTrue(bestMovie.equals("Terminator") || bestMovie.equals("My movie"));
     }
 }
