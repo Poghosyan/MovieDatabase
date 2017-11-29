@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class MovieDatabase {
     private ArrayList<Movie> movieList;
@@ -18,6 +20,27 @@ public class MovieDatabase {
      * @param actors Array of names of actors which are in the movie cast
      */
     void addMovie(String name, String[] actors) {
+        ArrayList<Actor> movieCast = new ArrayList<Actor>();
+        Movie movie = new Movie(name);
+        //TODO see if movie is in the movieList
+        //if it is ignore it, go though actors list of movie and add new actors while adding movie to actors movies
+        //then add new actors to actorsList
+        //if not create movie object, look through actorsList for actors and add them to movies actors
+        //add movie to actor's movies and add new actors to MDB's actorsList
+        Arrays.stream(actors)
+                .filter(s -> !actorList.contains(new Actor(s)))
+                .forEach(s -> {
+                    Actor currentActor = new Actor(s);
+
+                    if(!currentActor.getMovies().contains(movie)) {
+                        ArrayList<Movie> movies = currentActor.getMovies();
+                        movies.add(movie);
+                        currentActor.setMovies(movies);
+                    }
+
+                    movieCast.add(currentActor);
+                    actorList.add(currentActor);
+                });
 
     }
 
