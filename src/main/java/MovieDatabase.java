@@ -20,28 +20,55 @@ public class MovieDatabase {
      * @param actors Array of names of actors which are in the movie cast
      */
     void addMovie(String name, String[] actors) {
+        //TODO Implement in the regular way and then refactor using streams
         ArrayList<Actor> movieCast = new ArrayList<Actor>();
+        ArrayList<Movie> flixCastIn = new ArrayList<Movie>();
         Movie movie = new Movie(name);
-        /* TODO see if movie is in the movieList */
-        //if it is ignore it, go though actors list of movie and add new actors while adding movie to actors movies
-        //then add new actors to actorsList
-        //if not create movie object, look through actorsList for actors and add them to movies actors
-        //add movie to actor's movies and add new actors to MDB's actorsList
-        Arrays.stream(actors)
-                .filter(s -> !actorList.contains(new Actor(s)))
-                .forEach(s -> {
-                    Actor currentActor = new Actor(s);
 
-                    if(!currentActor.getMovies().contains(movie)) {
-                        ArrayList<Movie> movies = currentActor.getMovies();
-                        movies.add(movie);
-                        currentActor.setMovies(movies);
-                    }
+        if(!movieList.contains(movie)) {
+            movieCast = addToActorList(movie, actors);
+            movie.setActors(movieCast);
+            movieList.add(movie);
+        }
 
-                    movieCast.add(currentActor);
-                    actorList.add(currentActor);
-                });
+        for (Actor actorToAdd: movieCast) {
+            if(actorList.contains(actorToAdd)) {
+                int index = actorList.indexOf(actorToAdd);
+                actorToAdd = actorList.get(index);
+                flixCastIn = actorToAdd.getMovies();
+                if(!flixCastIn.contains(movie)) {
+                    flixCastIn.add(movie);
+                    actorToAdd.setMovies(flixCastIn);
+                }
+                actorList.set(index, actorToAdd);
+            } else {
+                actorList.add(actorToAdd);
+            }
+        }
+    }
 
+    private ArrayList<Actor> addToActorList(Movie movie, String[] actors) {
+        Actor actor;
+        ArrayList<Actor> result = new ArrayList<Actor>();
+        for (String actorName : actors) {
+            actor = new Actor(actorName);
+            if(actorList.contains(actor)) {
+                actor = actorList.get(actorList.indexOf(actor));
+                actor = addMovieToList(actor, movie);
+            } else {
+                actor = addMovieToList(actor, movie);
+            }
+            result.add(actor);
+        }
+        return result;
+    }
+
+    private Actor addMovieToList(Actor actor, Movie movie) {
+        ArrayList<Movie> actorMovies;
+        actorMovies = actor.getMovies();
+        actorMovies.add(movie);
+        actor.setMovies(actorMovies);
+        return actor;
     }
 
     /**
@@ -51,7 +78,10 @@ public class MovieDatabase {
      * @param rating Double value for new rating
      */
     void addRating(String name, double rating) {
-
+        int index = movieList.indexOf(new Movie(name));
+        Movie movie = movieList.get(index);
+        movie.setRating(rating);
+        movieList.set(index, movie);
     }
 
     /**
@@ -61,7 +91,10 @@ public class MovieDatabase {
      * @param newRating Double value for new rating
      */
     void updateRating(String name, double newRating) {
-
+        int index = movieList.indexOf(new Movie(name));
+        Movie movie = movieList.get(index);
+        movie.setRating(newRating);
+        movieList.set(index, movie);
     }
 
     /**
