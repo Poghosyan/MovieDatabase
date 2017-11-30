@@ -116,7 +116,7 @@ public class MovieDatabase {
     }
 
     private double avgRating(ArrayList<Movie> movies) {
-        return movies.stream().collect(Collectors.averagingDouble(s -> s.getRating()));
+        return movies.stream().collect(Collectors.averagingDouble(Movie::getRating));
     }
 
     /**
