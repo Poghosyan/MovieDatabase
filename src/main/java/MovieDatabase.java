@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MovieDatabase {
@@ -101,7 +102,21 @@ public class MovieDatabase {
      * @return Returns the name of the actor that has the best average rating for their movies.
      */
     String getBestActor() {
-        return null;
+        if(actorList.isEmpty()) {
+            return null;
+        }
+
+        Actor result = actorList.get(0);
+        for (Actor actor : actorList) {
+            if(avgRating(actor.getMovies()) > avgRating(result.getMovies())) {
+                result = actor;
+            }
+        }
+        return result.getName();
+    }
+
+    private double avgRating(ArrayList<Movie> movies) {
+        return movies.stream().collect(Collectors.averagingDouble(s -> s.getRating()));
     }
 
     /**
@@ -109,7 +124,15 @@ public class MovieDatabase {
      * @return Returns the name of the movie with the highest rating.
      */
     String getBestMovie() {
-        return null;
+        if(movieList.isEmpty()) {
+            return null;
+        }
+
+        Movie result = movieList.get(0);
+        for (Movie movie: movieList) {
+            if(result.getRating() < movie.getRating()) { result = movie; }
+        }
+        return result.getName();
     }
 
     public ArrayList<Movie> getMovieList() {
